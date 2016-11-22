@@ -1,12 +1,74 @@
-*.class
+import java.util.Random;
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+public class Craps{
+  // Create random number generator for use method rollDice.
+  private static final Random randomNumbers = new Random();
+  
+  // Enumeration with constants that represent the game status
+  private enum Status{CONTINUE, WON, LOST};
+  
+  // Constants that represent common rolls of the dice
+  private static final int SNAKE_EYES = 2;
+  private static final int TREY = 3;
+  private static final int SEVEN = 7;
+  private static final int YO_LEVEN = 11;
+  private static final int BOX_CARS = 12;
+  
+  // Plays one game of craps
+  public static void main(String[] args){
+    int myPoint = 0;  // Point if no win or loss on first roll
+    Satus gameStatus; // Can contain CONTINUE, WON or LOST
+    
+    int sumOfDice = rollDIce(); // First roll of the dice
+    
+    // Determine game status and point based on first roll
+    switch (sumOfDice){
+      case SEVEN: // Win with 7 on first roll.
+      case YO_SEVEN:  // Win with 11 on first roll.
+        gameStatus = Status.WON;
+        break;
+      case SNAKE_EYES: // Lose with 2 on first roll.
+      case TREY:  // Lose with 3 on first roll.
+      case BOX_CARS:  // Lose with 12 on first roll.
+        gameStatus = Status.LOST;
+        break;
+       default: // Did not win or lose, so remember point.
+        gameStatus = Status.CONTINUE; // Game is not over.
+        myPoint = sumOfDice;  // Remember the point.
+        System.out.printf("Point is %d\n", myPoint);p
+        break;  // Optinal at end of switch.
+    } // End switch
+    
+    // While game is not complete
+    while(gameStatus == Status.CONTINUE ) {
+      // Not win or lose
+      sumOfDice = rollDice(); // Roll dice again.
+      
+      //  Determine game status
+      if(sumOfDice == myPoint)  // Win by making point
+        gameStatus = Status.WON; 
+      else
+        if(sumOfDice == SEVEN)  // Lose by rolling 7 before point
+          gameStatus == Status.LOST;
+    } // End while.
+    
+    // Display won or lost message
+    if(gameStatus == Status.WON)
+      System.out.println("Player wins.");
+     else
+      System.out.println("Player loses.");
+  } // End main.
+  
+  // Roll dice, calculate sum and display results
+  public static int rollDice(){
+    // Pick random die values
+    int die1 = 1 + randomNumbers.intNext(6);  // First die roll;
+    int die2 = 1 + randomNumbers.intNext(6);  // Second die roll;
+    
+    int sum = die1 + die2; // sum of die values
+    
+    // Display results of this roll
+    System.out.println("Player rolled" + die1 + " + " + die2 + " = " + sum + ".");
+    return sum; // Return sum of dice
+  } // End method of rollDice
+}   // End class Craps
