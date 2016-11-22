@@ -17,14 +17,14 @@ public class Craps{
   // Plays one game of craps
   public static void main(String[] args){
     int myPoint = 0;  // Point if no win or loss on first roll
-    Satus gameStatus; // Can contain CONTINUE, WON or LOST
+    Status gameStatus; // Can contain CONTINUE, WON or LOST
     
-    int sumOfDice = rollDIce(); // First roll of the dice
+    int sumOfDice = rollDice(); // First roll of the dice
     
     // Determine game status and point based on first roll
     switch (sumOfDice){
       case SEVEN: // Win with 7 on first roll.
-      case YO_SEVEN:  // Win with 11 on first roll.
+      case YO_LEVEN:  // Win with 11 on first roll.
         gameStatus = Status.WON;
         break;
       case SNAKE_EYES: // Lose with 2 on first roll.
@@ -35,7 +35,7 @@ public class Craps{
        default: // Did not win or lose, so remember point.
         gameStatus = Status.CONTINUE; // Game is not over.
         myPoint = sumOfDice;  // Remember the point.
-        System.out.printf("Point is %d\n", myPoint);p
+        System.out.printf("Point is %d\n", myPoint);
         break;  // Optinal at end of switch.
     } // End switch
     
@@ -49,7 +49,7 @@ public class Craps{
         gameStatus = Status.WON; 
       else
         if(sumOfDice == SEVEN)  // Lose by rolling 7 before point
-          gameStatus == Status.LOST;
+          gameStatus = Status.LOST;
     } // End while.
     
     // Display won or lost message
@@ -62,13 +62,13 @@ public class Craps{
   // Roll dice, calculate sum and display results
   public static int rollDice(){
     // Pick random die values
-    int die1 = 1 + randomNumbers.intNext(6);  // First die roll;
-    int die2 = 1 + randomNumbers.intNext(6);  // Second die roll;
+    int die1 = 1 + randomNumbers.nextInt(6);  // First die roll;
+    int die2 = 1 + randomNumbers.nextInt(6);  // Second die roll;
     
     int sum = die1 + die2; // sum of die values
     
     // Display results of this roll
-    System.out.println("Player rolled" + die1 + " + " + die2 + " = " + sum + ".");
+    System.out.println("Player rolled " + die1 + " + " + die2 + " = " + sum + ".");
     return sum; // Return sum of dice
   } // End method of rollDice
 }   // End class Craps
